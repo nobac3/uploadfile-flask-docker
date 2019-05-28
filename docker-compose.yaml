@@ -15,7 +15,7 @@ services:
     ports:
       - "8030:8030"
     environment: 
-      S3_ACCESS_KEY: "AKIAJHV54AGZJ5KFR46A"
-      S3_SECRET_ACCESS_KEY: "LdH3xRt+uqfG0ncvkk8vaxzyrEAAStBrnOdSTv/a"
+      S3_ACCESS_KEY: "WRITE_YOUR_ACCESS_KEY_HERE"
+      S3_SECRET_ACCESS_KEY: "WRITE_YOUR_S3_SECRET_ACCESS_KEY_HERE"
     container_name: upload-image
  

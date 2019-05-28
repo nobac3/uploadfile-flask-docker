@@ -44,8 +44,6 @@
 #### 1 - create image
 
     docker build -t group-c/flask-app .     
-    docker build -t group-c/flask-app -e S3_ACCESS_KEY="AKIAJHV54AGZJ5KFR46A" -e S3_SECRET_ACCESS_KEY="LdH3xRt+uqfG0ncvkk8vaxzyrEAAStBrnOdSTv/a" .
-
 
 
 #### 2 - docker-compose 
@@ -60,6 +58,8 @@
     export S3_ACCESS_KEY="WRITE_YOUR_ACCESS_KEY_HERE"
     export S3_SECRET_ACCESS_KEY="WRITE_YOUR_S3_SECRET_ACCESS_KEY_HERE"
 
-#### 2 - DOCKER 
+#### 2 - Docker
 
     docker run --name upload-file-project -p 8030:8030 -e S3_ACCESS_KEY="WRITE_YOUR_ACCESS_KEY_HERE" -e S3_SECRET_ACCESS_KEY="WRITE_YOUR_S3_SECRET_ACCESS_KEY_HERE" group-c/flask-app
+
+
