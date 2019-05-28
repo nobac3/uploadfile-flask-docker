@@ -1,0 +1,21 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - webapp
+
+  webapp:
+    build: src
+    image: group-c/flask-app
+    ports:
+      - "8030:8030"
+    environment: 
+      S3_ACCESS_KEY: "AKIAJHV54AGZJ5KFR46A"
+      S3_SECRET_ACCESS_KEY: "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"
+    container_name: upload-image
+ 

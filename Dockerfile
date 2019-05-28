@@ -1,8 +1,8 @@
 FROM python:3.6
-LABEL maintainer="lorenz.vanthillo@gmail.com"
-COPY . /app
-WORKDIR /app
+LABEL maintainer="antoinecabon3@gmail.com"
+COPY . /src
+WORKDIR /src
 RUN pip install -r requirements.txt
-EXPOSE 8080
+EXPOSE 8030
 ENTRYPOINT ["python"]
-CMD ["app/app.py"]
+CMD ["src/wsgi.py"]

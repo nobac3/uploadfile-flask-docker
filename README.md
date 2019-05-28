@@ -1,37 +1,65 @@
-# python-flask-docker
-Basic Python Flask app in Docker which prints the hostname and IP of the container
+# Flask, Dockerfile & Docker-compose.yaml
 
-### Build application
-Build the Docker image manually by cloning the Git repo.
-```
-$ git clone https://github.com/lvthillo/python-flask-docker.git
-$ docker build -t lvthillo/python-flask-docker .
-```
+## Flask 
 
-### Download precreated image
-You can also just download the existing image from [DockerHub](https://hub.docker.com/r/lvthillo/python-flask-docker/).
-```
-docker pull lvthillo/python-flask-docker
-```
+#### 1 - start virtual env: 
 
-### Run the container
-Create a container from the image.
-```
-$ docker run --name my-container -d -p 8080:8080 lvthillo/python-flask-docker
-```
+    cd upload-to-s3-master
+    source env/bin/activate
+    
+#### 2 - start app
 
-Now visit http://localhost:8080
-```
- The hostname of the container is 6095273a4e9b and its IP is 172.17.0.2. 
-```
+    python app/app.py
 
-### Verify the running container
-Verify by checking the container ip and hostname (ID):
-```
-$ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-container
-172.17.0.2
-$ docker inspect -f '{{ .Config.Hostname }}' my-container
-6095273a4e9b
-```
+## Dockerfile
+
+#### 1 - create machine 
+
+    docker-machine create --driver virtualbox default
+    docker-machine env default
+    $ eval "$(docker-machine env default)"
+
+#### 2 - build image 
+
+    docker build -t group-c/flask-app .
+
+#### 3 - run the container
+
+    docker run --name upload-file-project -p 8030:8030 group-c/flask-app
+
+#### 4 - delete all images 
+
+    docker rmi  $(docker images)
+
+#### 5 - delete all containers
+
+    docker rm -vf $(docker ps -a -q)
+    
+#### 6 - remove container 
+
+    docker rm -f upload-file-project
+
+## Docker-compose 
+
+#### 1 - create image
+
+    docker build -t group-c/flask-app .     
+    docker build -t group-c/flask-app -e S3_ACCESS_KEY="AKIAJHV54AGZJ5KFR46A" -e S3_SECRET_ACCESS_KEY="LdH3xRt+uqfG0ncvkk8vaxzyrEAAStBrnOdSTv/a" .
 
 
+
+#### 2 - docker-compose 
+
+    docker-compose up
+
+## Secure your AWS access code
+
+
+#### 1 - local
+
+    export S3_ACCESS_KEY="WRITE_YOUR_ACCESS_KEY_HERE"
+    export S3_SECRET_ACCESS_KEY="WRITE_YOUR_S3_SECRET_ACCESS_KEY_HERE"
+
+#### 2 - DOCKER 
+
+    docker run --name upload-file-project -p 8030:8030 -e S3_ACCESS_KEY="WRITE_YOUR_ACCESS_KEY_HERE" -e S3_SECRET_ACCESS_KEY="WRITE_YOUR_S3_SECRET_ACCESS_KEY_HERE" group-c/flask-app
