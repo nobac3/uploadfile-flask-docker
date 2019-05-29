@@ -1,2 +1,4 @@
 AWS_PASSWORD.md
 __pycache__
+*.pyc
+build
